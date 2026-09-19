@@ -13,7 +13,7 @@ echo "== Surface AI Workstation: root bootstrap =="
 export DEBIAN_FRONTEND=noninteractive
 
 apt-get update
-apt-get install -y ca-certificates curl git xz-utils build-essential nodejs npm docker.io docker-compose-v2
+apt-get install -y   ca-certificates curl git xz-utils build-essential   nodejs npm docker.io docker-compose-v2
 
 systemctl enable --now docker
 
@@ -27,10 +27,6 @@ fi
 
 if ! command -v uv >/dev/null 2>&1; then
   curl -LsSf https://astral.sh/uv/install.sh | env UV_INSTALL_DIR=/usr/local/bin UV_NO_MODIFY_PATH=1 sh
-fi
-
-if ! command -v hermes >/dev/null 2>&1; then
-  curl -fsSL https://hermes-agent.nousresearch.com/install.sh | env HERMES_HOME=/var/lib/hermes bash -s -- --skip-setup --non-interactive
 fi
 
 REGULAR_USER="$(awk -F: '$3 >= 1000 && $3 < 60000 && $6 ~ /^\/home\// {print $1; exit}' /etc/passwd || true)"
