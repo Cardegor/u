@@ -13,6 +13,17 @@ fi
 
 echo "== Surface AI Workstation: user desktop setup =="
 
+# The root bootstrap installs build dependencies, VS Code and Blender. A user
+# may reach GNOME before that background service has finished, so wait here.
+for _ in $(seq 1 360); do
+  [[ -f /var/lib/surface-ai-bootstrap.done ]] && break
+  sleep 5
+done
+if [[ ! -f /var/lib/surface-ai-bootstrap.done ]]; then
+  echo "Root bootstrap has not completed yet. This setup will retry at next login."
+  exit 1
+fi
+
 export PATH="$HOME/.local/bin:$HOME/bin:/usr/local/bin:/snap/bin:$PATH"
 CACHE="$HOME/.cache/surface-ai-setup"
 rm -rf "$CACHE"
