@@ -13,10 +13,16 @@ fi
 
 echo "== Surface AI Workstation: user desktop setup =="
 
-export PATH="$HOME/.local/bin:/usr/local/bin:/snap/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/bin:/usr/local/bin:/snap/bin:$PATH"
 CACHE="$HOME/.cache/surface-ai-setup"
 rm -rf "$CACHE"
 mkdir -p "$CACHE" "$HOME/src" "$HOME/.local/bin"
+
+# Install Codex CLI as the user so upgrades do not depend on root-owned npm paths.
+if ! command -v codex >/dev/null 2>&1; then
+  curl -fsSL https://chatgpt.com/codex/install.sh | sh
+  export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+fi
 
 # WhiteSur GTK / GNOME Shell theme
 git clone --depth=1 https://github.com/vinceliuice/WhiteSur-gtk-theme.git "$CACHE/WhiteSur-gtk-theme"
@@ -158,7 +164,7 @@ cat > "$STATE_DIR/NEXT-STEPS.txt" <<'EOF'
 Surface AI Workstation is prepared.
 
 Authenticate/configure:
-  codex
+  codex login
   gh auth login
   hermes setup
 
