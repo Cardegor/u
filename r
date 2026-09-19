@@ -21,10 +21,6 @@ if ! command -v pnpm >/dev/null 2>&1; then
   npm install -g pnpm
 fi
 
-if ! command -v codex >/dev/null 2>&1; then
-  npm install -g @openai/codex
-fi
-
 if ! command -v uv >/dev/null 2>&1; then
   curl -LsSf https://astral.sh/uv/install.sh | env UV_INSTALL_DIR=/usr/local/bin UV_NO_MODIFY_PATH=1 sh
 fi
