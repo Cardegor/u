@@ -2,8 +2,9 @@
 autoinstall:
   version: 1
 
-  # Keep all normal installer screens visible. In particular, disk layout,
-  # encryption, Wi-Fi, account name and password remain under your control.
+  # Keep Ubuntu's normal installer screens interactive. This file only supplies
+  # defaults plus a small post-install bootstrap. Disk layout, encryption,
+  # Wi-Fi, username and password stay under your control.
   interactive-sections:
     - "*"
 
@@ -14,63 +15,9 @@ autoinstall:
     toggle: null
   timezone: Europe/Berlin
 
-  codecs:
-    install: true
-
-  drivers:
-    install: true
-
-  oem:
-    install: auto
-
-  updates: all
-
-  packages:
-    - ca-certificates
-    - curl
-    - wget
-    - git
-    - gh
-    - build-essential
-    - xz-utils
-    - jq
-    - unzip
-    - zip
-    - rsync
-    - ripgrep
-    - nodejs
-    - npm
-    - docker.io
-    - docker-compose-v2
-    - python3
-    - python3-venv
-    - python3-pip
-    - python3-dev
-    - pipx
-    - sqlite3
-    - postgresql-client
-    - ffmpeg
-    - imagemagick
-    - gnome-tweaks
-    - gnome-shell-extension-manager
-    - gnome-shell-extension-user-theme
-    - gnome-shell-extension-workspace-indicator
-    - gnome-shell-extension-system-monitor
-    - sassc
-    - libglib2.0-dev
-    - libglib2.0-dev-bin
-    - libxml2-utils
-    - gettext
-    - libnotify-bin
-    - fonts-inter
-
-  snaps:
-    - name: code
-      channel: stable
-      classic: true
-    - name: blender
-      channel: stable
-      classic: true
+  # Keep the installer lean and reliable. All optional development/creative
+  # software is installed after the first boot instead of while files are copied.
+  updates: security
 
   late-commands:
     - install -d -m 0755 /target/usr/local/sbin /target/usr/local/bin /target/etc/systemd/system /target/etc/xdg/autostart
