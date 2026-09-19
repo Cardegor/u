@@ -34,8 +34,10 @@ autoinstall:
       ConditionPathExists=!/var/lib/surface-ai-bootstrap.done
 
       [Service]
-      Type=oneshot
+      Type=simple
       ExecStart=/usr/local/sbin/surface-ai-root-firstboot
+      Restart=on-failure
+      RestartSec=30s
       TimeoutStartSec=0
 
       [Install]
